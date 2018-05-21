@@ -1,0 +1,23 @@
+﻿@model WebAppShowId.Models.Hotel
+
+<td>
+    @Html.DisplayFor(Model => Model.Name)
+</td>
+<td>
+    @Html.DisplayFor(Model => Model.Stars)
+</td>
+<td>
+    <div>
+        @foreach (var item in Model.Rooms)
+        {
+            <p>@item.Number - @item.Beds beds - @item.BedRooms bedrooms - @(item.isVacant ? "Free" : "Taken")</p>
+        }
+    </div>
+</td>
+<td>
+    @Ajax.ActionLink("Hide details", "HotelListItem", new { id = Model.Id }, new AjaxOptions()
+    {
+        UpdateTargetId = "hotelId" + Model.Id,
+        InsertionMode = InsertionMode.Replace
+    })
+</td>

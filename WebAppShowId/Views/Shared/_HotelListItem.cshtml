@@ -1,0 +1,18 @@
+﻿@model WebAppShowId.Models.Hotel
+
+<td>
+    @Html.DisplayFor(Model => Model.Name)
+</td>
+<td>
+    @Html.DisplayFor(Model => Model.Stars)
+</td>
+<td>
+    @Html.DisplayFor(Model => Model.Rooms.Count)
+</td>
+<td>
+    @Ajax.ActionLink("Show details", "HotelDetails", new { id = Model.Id }, new AjaxOptions()
+    {
+        UpdateTargetId = "hotelId" + Model.Id,
+        InsertionMode = InsertionMode.Replace
+    })
+</td>
