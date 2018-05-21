@@ -75,8 +75,42 @@ namespace WebAppShowId.Migrations
                );
             context.SaveChanges();
 
+            Hotel thump = context.Hotels.Include("Rooms").SingleOrDefault(h => h.Name == "Thump");
+            Hotel grand = context.Hotels.Include("Rooms").SingleOrDefault(h => h.Name == "Grand");
 
+            // If we have Navigation property we can use this
+            //context.Rooms.AddOrUpdate(r => r.Hotel_Id,
+            //    new Room()
+            //    { Hotel_Id = thump.Id, Number = 101, BedRooms = 2, Beds = 2, isVacant = false }
+            //    );
 
+            if(thump.Rooms.SingleOrDefault(r => r.Number == 101) == null)
+            {
+                thump.Rooms.Add(new Room()
+                { Number = 101, BedRooms = 2, Beds = 2, isVacant=false });
+            }
+            if (thump.Rooms.SingleOrDefault(r => r.Number == 102) == null)
+            {
+                thump.Rooms.Add(new Room()
+                { Number = 102, BedRooms = 1, Beds = 2, isVacant = true });
+            }
+
+            if (grand.Rooms.SingleOrDefault(r => r.Number == 101) == null)
+            {
+                grand.Rooms.Add(new Room()
+                { Number = 101, BedRooms = 1, Beds = 1, isVacant = false });
+            }
+            if (grand.Rooms.SingleOrDefault(r => r.Number == 102) == null)
+            {
+                grand.Rooms.Add(new Room()
+                { Number = 102, BedRooms = 1, Beds = 2, isVacant = true });
+            }
+            if (grand.Rooms.SingleOrDefault(r => r.Number == 201) == null)
+            {
+                grand.Rooms.Add(new Room()
+                { Number = 201, BedRooms = 4, Beds = 4, isVacant = true });
+            }
+            context.SaveChanges();  //Remember to SaveChanges in the end if we are working with our own classes (Role and User are saved by there respectiv Managers)
         }
     }
 }

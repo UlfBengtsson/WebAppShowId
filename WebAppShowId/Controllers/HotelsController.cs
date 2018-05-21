@@ -13,7 +13,6 @@ namespace WebAppShowId.Controllers
         // GET: Hotels
         public ActionResult Index()
         {
-
             return View(db.Hotels.Include("Rooms"));
         }
 
